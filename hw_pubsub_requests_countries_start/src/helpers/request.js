@@ -13,9 +13,8 @@ Request.prototype.get = function(onComplete) {
       xhr.error(xhr.status);
       return;
     }
-    const jsonData = xhr.reponseText;
+    const jsonData = xhr.responseText;
     const data = JSON.parse(jsonData);
-
     onComplete(data);
   });
   xhr.send();
