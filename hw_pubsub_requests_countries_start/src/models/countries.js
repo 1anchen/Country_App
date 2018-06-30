@@ -10,7 +10,7 @@ Countries.prototype.getData = function () {
   const request = new Request(url);
   request.get((data)=>{
     this.countriesArray = data;
-    PubSub.publish('Counties:sendData',data);
+    PubSub.publish('Countries:sendAllCountries',data);
   });
 
 };
@@ -20,7 +20,30 @@ Countries.prototype.selectCountry = function () {
     const index = event.detail;
     const selectedCountry = this.countriesArray[index];
     PubSub.publish('Countries:selectedCountry', selectedCountry);
+    this.selectBorder(selectedCountry);
   });
+
+Countries.prototype.selectBorder = function (selectedCountry) {
+  const borders = selectedCountry.borders.map((code)=>{
+    return this.findMatchingCode(code);
+  });
+  PubSub.publish('Countries: selectedBorder', borders);
+
+};
+
+
+
+Countries.prototype.findMatchingCode = function (code) {
+  let countryNames = [];
+  this.countriesArray.forEach((country) => {
+    if (country.alpha3Code === code){
+      countryNames = country.name;
+    }
+  });
+  console.log(countryNames);
+  return countryNames;
+
+};
 
 
 };

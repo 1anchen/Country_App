@@ -6,14 +6,13 @@ const SelectView = function(container){
 };
 
 SelectView.prototype.bindEvents = function () {
-  PubSub.subscribe('Counties:sendData',(event)=>{
+  PubSub.subscribe('Countries:sendAllCountries',(event)=>{
     const countiesData = event.detail;
     this.populate(countiesData);
   });
 
   this.container.addEventListener('change', function (event) {
     PubSub.publish('SelectView:change', event.target.value);
-
   });
 
 };

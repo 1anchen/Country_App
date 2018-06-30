@@ -11,8 +11,12 @@ ResultView.prototype.bindEvents = function () {
     const country= event.detail;
     this.container.innerHTML = "";
     this.displayCountry(country);
-    console.log(country);
+  });
 
+  PubSub.subscribe('Countries: selectedBorder',(event) => {
+    const border =event.detail;
+    console.log(border);
+    this.createElement('h3','Border Country',border);
   });
 
 
@@ -24,7 +28,6 @@ ResultView.prototype.displayCountry = function (country) {
   this.createElement( 'h4','Capital',country.capital);
   this.createElement( 'h4','Region',country.region);
   this.createImage('h4','Flag',country.flag);
-  this.createBorders('h4','Border',country.broders);
 };
 
 
@@ -44,9 +47,5 @@ ResultView.prototype.createImage = function (htmlElement,string,url) {
   this.container.appendChild(img);
 };
 
-ClassName.prototype.createBorders = function (htmlElement,string,value) {
-  const element = document.createElement(htmlElement);
-
-};
 
 module.exports = ResultView;

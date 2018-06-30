@@ -17,4 +17,5 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultView = new ResultView(container);
   resultView.bindEvents();
 
+
 });
